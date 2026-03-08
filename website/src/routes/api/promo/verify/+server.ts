@@ -26,6 +26,7 @@ export const POST: RequestHandler = async ({ request }) => {
                 id: promoCode.id,
                 code: promoCode.code,
                 rewardAmount: promoCode.rewardAmount,
+                rewardType: promoCode.rewardType,
                 maxUses: promoCode.maxUses,
                 expiresAt: promoCode.expiresAt,
                 isActive: promoCode.isActive,
@@ -73,7 +74,10 @@ export const POST: RequestHandler = async ({ request }) => {
         }
 
         const [userData] = await tx
-            .select({ baseCurrencyBalance: user.baseCurrencyBalance })
+            .select({ 
+                baseCurrencyBalance: user.baseCurrencyBalance,
+                gems: user.gems
+            })
             .from(user)
             .where(eq(user.id, userId))
             .for('update')
@@ -83,6 +87,59 @@ export const POST: RequestHandler = async ({ request }) => {
             throw error(404, 'User not found');
         }
 
+        const rewardAmountNum = Number(promoData.rewardAmount);
+        let message = '';
+        let newBalance = 0;
+
+        if (promoData.rewardType === 'GEMS') {
+            const currentGems = userData.gems || 0;
+            const rewardGems = Math.floor(rewardAmountNum); // Gems are integers
+            newBalance = currentGems + rewardGems;
+
+            await tx
+                .update(user)
+                .set({
+                    gems: newBalance,
+                    updatedAt: new Date()
+                })
+                .where(eq(user.id, userId));
+                
+            message = promoData.description || `Promo code redeemed! You received ${rewardGems} Gems`;
+        } else {
+            const currentBalance = Number(userData.baseCurrencyBalance || 0);
+            newBalance = currentBalance + rewardAmountNum;
+
+            await tx
+                .update(user)
+                .set({
+                    baseCurrencyBalance: newBalance.toFixed(8),
+                    updatedAt: new Date()
+                })
+                .where(eq(user.id, userId));
+                
+            message = promoData.description || `Promo code redeemed! You received $${rewardAmountNum.toFixed(2)}`;
+        }
+
+        // 4. Record the redemption
+        await tx
+            .insert(promoCodeRedemption)
+            .values({
+                userId,
+                promoCodeId: promoData.id,
+                rewardAmount: rewardAmountNum.toFixed(8),
+                rewardType: promoData.rewardType
+            });
+
+        return json({
+            success: true,
+            message,
+            rewardAmount: rewardAmountNum,
+            rewardType: promoData.rewardType,
+            newBalance,
+            code: promoData.code
+        });
+
+        /*
         const currentBalance = Number(userData.baseCurrencyBalance || 0);
         const rewardAmount = Number(promoData.rewardAmount);
         const newBalance = currentBalance + rewardAmount;
@@ -110,5 +167,6 @@ export const POST: RequestHandler = async ({ request }) => {
             newBalance,
             code: promoData.code
         });
+    */
     });
 };

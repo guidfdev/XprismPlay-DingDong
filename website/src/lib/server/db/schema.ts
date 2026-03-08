@@ -5,6 +5,7 @@ export const transactionTypeEnum = pgEnum('transaction_type', ['BUY', 'SELL', 'T
 export const predictionMarketEnum = pgEnum('prediction_market_status', ['ACTIVE', 'RESOLVED', 'CANCELLED']);
 export const notificationTypeEnum = pgEnum('notification_type', ['HOPIUM', 'SYSTEM', 'TRANSFER', 'RUG_PULL', 'MENTION']);
 export const shopItemTypeEnum = pgEnum('shop_item_type', ['namecolor']);
+export const promoRewardTypeEnum = pgEnum('promo_reward_type', ['BASE_CURRENCY', 'GEMS']);
 
 export const user = pgTable("user", {
 	id: serial("id").primaryKey(),
@@ -206,6 +207,7 @@ export const promoCode = pgTable('promo_code', {
 	code: varchar('code', { length: 50 }).notNull().unique(),
 	description: text('description'),
 	rewardAmount: decimal('reward_amount', { precision: 30, scale: 8 }).notNull(),
+	rewardType: promoRewardTypeEnum('reward_type').notNull().default('BASE_CURRENCY'),
 	maxUses: integer('max_uses'), // null = unlimited
 	isActive: boolean('is_active').notNull().default(true),
 	expiresAt: timestamp('expires_at', { withTimezone: true }),
@@ -218,6 +220,7 @@ export const promoCodeRedemption = pgTable('promo_code_redemption', {
 	userId: integer('user_id').references(() => user.id, { onDelete: "cascade" }),
 	promoCodeId: integer('promo_code_id').notNull().references(() => promoCode.id),
 	rewardAmount: decimal('reward_amount', { precision: 30, scale: 8 }).notNull(),
+	rewardType: promoRewardTypeEnum('reward_type').notNull().default('BASE_CURRENCY'),
 	redeemedAt: timestamp('redeemed_at', { withTimezone: true }).notNull().defaultNow(),
 }, (table) => ({
 	userPromoUnique: unique().on(table.userId, table.promoCodeId),

@@ -11,10 +11,10 @@ export const POST: RequestHandler = async ({ request }) => {
         throw error(403, 'Admin access required');
     }
 
-    const { code, description, rewardAmount, maxUses, expiresAt } = await request.json();
+    const { code, description, rewardAmount, rewardType, maxUses, expiresAt } = await request.json();
 
-    if (!code || !rewardAmount) {
-        return json({ error: 'Code and reward amount are required' }, { status: 400 });
+    if (!code || !rewardAmount || !rewardType) {
+        return json({ error: 'Code, reward amount, and reward type are required' }, { status: 400 });
     }
 
     const normalizedCode = code.trim().toUpperCase();
@@ -36,6 +36,7 @@ export const POST: RequestHandler = async ({ request }) => {
             code: normalizedCode,
             description: description || null,
             rewardAmount: Number(rewardAmount).toFixed(8),
+            rewardType: rewardType, // Save the reward type
             maxUses: maxUses || null,
             expiresAt: expiresAt ? new Date(expiresAt) : null,
             createdBy: userId
@@ -49,6 +50,7 @@ export const POST: RequestHandler = async ({ request }) => {
             code: newPromoCode.code,
             description: newPromoCode.description,
             rewardAmount: Number(newPromoCode.rewardAmount),
+            rewardType: newPromoCode.rewardType, // Return it
             maxUses: newPromoCode.maxUses,
             expiresAt: newPromoCode.expiresAt
         }
@@ -68,6 +70,7 @@ export const GET: RequestHandler = async ({ request }) => {
             code: promoCode.code,
             description: promoCode.description,
             rewardAmount: promoCode.rewardAmount,
+            rewardType: promoCode.rewardType,
             maxUses: promoCode.maxUses,
             isActive: promoCode.isActive,
             createdAt: promoCode.createdAt,

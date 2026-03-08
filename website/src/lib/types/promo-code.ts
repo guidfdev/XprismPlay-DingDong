@@ -3,6 +3,7 @@ export interface PromoCode {
     code: string;
     description?: string;
     rewardAmount: string;
+    rewardType: 'BASE_CURRENCY' | 'GEMS';
     maxUses?: number;
     isActive: boolean;
     expiresAt?: string;

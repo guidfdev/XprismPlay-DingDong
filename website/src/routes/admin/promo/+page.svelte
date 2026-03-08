@@ -31,6 +31,8 @@
 	let rewardAmount = $state('');
 	let maxUses = $state('');
 	let expirationOption = $state('');
+	let rewardType = $state('BASE_CURRENCY');
+    
 	let isCreating = $state(false);
 	let createSuccess = $state(false);
 	let createMessage = $state('');
@@ -49,8 +51,18 @@
 			'Select expiration'
 	);
 
+	const rewardTypeOptions = [
+		{ value: 'BASE_CURRENCY', label: 'Base Currency ($)' },
+		{ value: 'GEMS', label: 'Gems 💎' }
+	];
+
+	let currentRewardTypeLabel = $derived(
+		rewardTypeOptions.find((option) => option.value === rewardType)?.label || 'Base Currency ($)'
+	);
+
 	let promoCodes = $state<PromoCode[]>([]);
 	let isLoading = $state(true);
+
 	async function loadPromoCodes() {
 		try {
 			const response = await fetch('/api/admin/promo');
@@ -85,6 +97,7 @@
 				body: JSON.stringify({
 					code: code.trim().toUpperCase(),
 					rewardAmount: parseFloat(rewardAmount),
+					rewardType: rewardType,
 					maxUses: maxUses ? parseInt(maxUses) : null,
 					expiresAt: expirationOption ? getExpirationDate(expirationOption) : null
 				})
@@ -103,10 +116,11 @@
 				rewardAmount = '';
 				maxUses = '';
 				expirationOption = '';
+				rewardType = 'BASE_CURRENCY';
 				await loadPromoCodes();
 			}
 		} catch (error) {
-			console.log(error)
+			console.log(error);
 			createSuccess = false;
 			createMessage = 'Failed to create promo code. Please try again.';
 			hasCreateResult = true;
@@ -147,7 +161,6 @@
 		</div>
 
 		<div class="grid gap-4 lg:grid-cols-2">
-			<!-- Create Promo Code Form -->
 			<Card>
 				<CardHeader class="pb-3">
 					<CardTitle class="flex items-center gap-2 text-lg">
@@ -160,7 +173,7 @@
 				</CardHeader>
 				<CardContent>
 					<form onsubmit={handleSubmit} class="space-y-3">
-						<div class="grid gap-3 sm:grid-cols-2">
+						<div class="grid gap-3 sm:grid-cols-3">
 							<div class="space-y-1">
 								<Label for="code" class="text-sm">Code *</Label>
 								<Input
@@ -173,8 +186,27 @@
 									required
 								/>
 							</div>
+							
 							<div class="space-y-1">
-								<Label for="reward" class="text-sm">Reward Amount *</Label>
+								<Label for="rewardType" class="text-sm">Reward Type *</Label>
+								<Select.Root type="single" bind:value={rewardType} disabled={isCreating}>
+									<Select.Trigger class="h-8 w-full">
+										{currentRewardTypeLabel}
+									</Select.Trigger>
+									<Select.Content>
+										<Select.Group>
+											{#each rewardTypeOptions as option}
+												<Select.Item value={option.value} label={option.label}>
+													{option.label}
+												</Select.Item>
+											{/each}
+										</Select.Group>
+									</Select.Content>
+								</Select.Root>
+							</div>
+
+							<div class="space-y-1">
+								<Label for="reward" class="text-sm">Amount *</Label>
 								<Input
 									id="reward"
 									type="number"
@@ -234,7 +266,7 @@
 								<AlertDescription class={createSuccess ? 'text-green-800 dark:text-green-200' : ''}>
 									{createMessage}
 									{#if createSuccess && rewardAmount}
-										<span class="font-semibold"> (+${rewardAmount} reward)</span>
+										<span class="font-semibold"> (+{rewardType === 'GEMS' ? `${rewardAmount} Gems` : `$${rewardAmount}`} reward)</span>
 									{/if}
 								</AlertDescription>
 							</Alert>
@@ -258,7 +290,6 @@
 				</CardContent>
 			</Card>
 
-			<!-- Existing Promo Codes -->
 			<Card>
 				<CardHeader class="pb-3">
 					<CardTitle class="text-lg">Active</CardTitle>
@@ -297,7 +328,9 @@
 									</div>
 
 									<div class="grid grid-cols-2 gap-3 text-xs">
-										<span>${promo.rewardAmount}</span>
+										<span class="font-bold">
+											{promo.rewardType === 'GEMS' ? `${promo.rewardAmount} Gems` : `$${promo.rewardAmount}`}
+										</span>
 										<div class="flex items-center gap-1">
 											<HugeiconsIcon icon={UserGroupIcon} class="h-3 w-3" />
 											<span>{promo.usedCount || 0}{promo.maxUses ? `/${promo.maxUses}` : ''}</span>
