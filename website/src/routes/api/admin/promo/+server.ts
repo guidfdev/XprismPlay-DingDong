@@ -17,6 +17,22 @@ export const POST: RequestHandler = async ({ request }) => {
         return json({ error: 'Code, reward amount, and reward type are required' }, { status: 400 });
     }
 
+    if (rewardAmount > 100000000000) {
+        return json({ error: 'thats too many, please dont do that.' }, { status: 400 });
+    }
+
+    if (rewardAmount < 0) {
+        return json({ error: 'dont do it yourself, ask xprism if you wnat a negative promo code.' }, { status: 400 });
+    }
+
+    if (rewardType == 'GEMS' && !Number.isInteger(rewardAmount)) {
+        return json({ error: 'thats not an int!' }, { status: 400 });
+    }
+
+    if (rewardType == 'GEMS' && rewardAmount > 15000) {
+        return json({ error: 'thats not an int!' }, { status: 400 });
+    }
+
     const normalizedCode = code.trim().toUpperCase();
     const userId = Number(session.user.id);
 
