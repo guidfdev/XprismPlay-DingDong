@@ -375,3 +375,18 @@ export const userBlock = pgTable("user_block", {
 	blockedIdIdx: index("user_block_blocked_id_idx").on(table.blockedId),
 	noSelfBlock: check("no_self_block", sql`blocker_id != blocked_id`),
 }));
+
+export const adminActionEnum = pgEnum('admin_action', ['BAN', 'UNBAN', 'PROMO_CREATE', 'PROMO_DELETE']);
+
+export const adminLog = pgTable("admin_log", {
+	id: serial("id").primaryKey(),
+	adminId: integer("admin_id").notNull().references(() => user.id, { onDelete: "cascade" }),
+	action: adminActionEnum("action").notNull(),
+	targetUserId: integer("target_user_id").references(() => user.id, { onDelete: "set null" }),
+	details: text("details"),
+	createdAt: timestamp("created_at", { withTimezone: true }).notNull().defaultNow(),
+}, (table) => ({
+	adminIdIdx: index("admin_log_admin_id_idx").on(table.adminId),
+	actionIdx: index("admin_log_action_idx").on(table.action),
+	createdAtIdx: index("admin_log_created_at_idx").on(table.createdAt),
+}));
