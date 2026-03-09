@@ -158,6 +158,7 @@ export const transaction = pgTable("transaction", {
 	timestamp: timestamp("timestamp", { withTimezone: true }).notNull().defaultNow(),
 	recipientUserId: integer('recipient_user_id').references(() => user.id, { onDelete: 'set null' }),
 	senderUserId: integer('sender_user_id').references(() => user.id, { onDelete: 'set null' }),
+    note: varchar('note', { length: 500 }),
 }, (table) => {
 	return {
 		userIdIdx: index("transaction_user_id_idx").on(table.userId),

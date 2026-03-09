@@ -15,7 +15,23 @@ export const POST: RequestHandler = async ({ request }) => {
     const { code, description, rewardAmount, rewardType, maxUses, expiresAt } = await request.json();
 
     if (!code || !rewardAmount || !rewardType) {
-        return json({ error: 'Code, reward amount, and reward type are required' }, { status: 400 });
+        return json({ error: "Code, reward amount, and reward type are required." }, { status: 400 });
+    }
+
+     if (rewardAmount > 100000000000) {
+        return json({ error: "Reward amount is above the maximum allowable ceiling of 100000000000." }, { status: 400 });
+    }
+
+    if (rewardAmount < 0) {
+        return json({ error: "You cannot add negative promo codes via the API. Contact Xprism to add one." }, { status: 400 });
+    }
+
+    if (rewardType == 'GEMS' && !Number.isInteger(rewardAmount)) {
+        return json({ error: "Gems can only be added in integer quantities." }, { status: 400 });
+    }
+
+    if (rewardType == 'GEMS' && rewardAmount > 15000) {
+        return json({ error: "Reward amount is above the maximum allowable ceiling of 15000 for gems." }, { status: 400 });
     }
 
     const normalizedCode = code.trim().toUpperCase();
@@ -28,7 +44,7 @@ export const POST: RequestHandler = async ({ request }) => {
         .limit(1);
 
     if (existingCode) {
-        return json({ error: 'Promo code already exists' }, { status: 400 });
+        return json({ error: "This promo code already exists." }, { status: 400 });
     }
 
     const [newPromoCode] = await db
