@@ -385,13 +385,22 @@
 								</div>
 								<div class="flex justify-between">
 									<span>Coins:</span>
-									<span class="font-mono" style="color: #00ff0d">${formatCurrency($PORTFOLIO_SUMMARY.totalCoinValue)}</span
+									<span class="font-mono" style="color: #00ff0d"
+										>${formatCurrency($PORTFOLIO_SUMMARY.totalCoinValue)}</span
 									>
 								</div>
 								{#if $GEMS_BALANCE !== null}
 									<div class="flex justify-between">
 										<span>Gems:</span>
-										<span class="font-mono" style="color: #ca00ff"><HugeiconsIcon icon={GemIcon} size={14} strokeWidth={2} style="display: inline; vertical-align: middle; color: #ca00ff" /> {$GEMS_BALANCE.toLocaleString()}</span>
+										<span class="font-mono" style="color: #ca00ff"
+											><HugeiconsIcon
+												icon={GemIcon}
+												size={14}
+												strokeWidth={2}
+												style="display: inline; vertical-align: middle; color: #ca00ff"
+											/>
+											{$GEMS_BALANCE.toLocaleString()}</span
+										>
 									</div>
 								{/if}
 							</div>

@@ -97,7 +97,7 @@
 			'/about': 'About',
 			'/legal/privacy': 'Privacy Policy',
 			'/legal/terms': 'Terms of Service',
-			'/shop': 'Shop',
+			'/shop': 'Shop'
 		};
 
 		// Handle dynamic routes
@@ -123,7 +123,8 @@
 		adScriptLoaded = true;
 		const script = document.createElement('script');
 		script.async = true;
-		script.src = 'https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7420543404967748';
+		script.src =
+			'https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7420543404967748';
 		script.crossOrigin = 'anonymous';
 		document.head.appendChild(script);
 	});
@@ -138,7 +139,7 @@
 
 	<Sidebar.Inset class="sidebar-container">
 		<header
-			class="group-has-data-[collapsible=icon]/sidebar-wrapper:h-12 flex h-12 shrink-0 items-center gap-2 border-b transition-[width,height] ease-linear"
+			class="flex h-12 shrink-0 items-center gap-2 border-b transition-[width,height] ease-linear group-has-data-[collapsible=icon]/sidebar-wrapper:h-12"
 		>
 			<div class="flex w-full items-center gap-4 px-4 lg:px-6">
 				<Sidebar.Trigger class="-ml-1" />

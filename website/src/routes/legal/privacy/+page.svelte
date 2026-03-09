@@ -12,7 +12,7 @@
 	const CONTACT_EMAIL = 'contact@outpoot.com';
 </script>
 
-<SEO 
+<SEO
 	title="Privacy Policy - Rugplay"
 	description="Privacy Policy for Rugplay cryptocurrency simulation game. Learn about data collection, account deletion process, virtual currency privacy, and your rights."
 	keywords="privacy policy, data protection, account deletion, virtual currency privacy, simulation game privacy"
@@ -87,7 +87,13 @@
 					<div>
 						<h3 class="mb-2 text-lg font-medium">2.3 Payment Information (via Polar.sh)</h3>
 						<p class="mb-2">
-							When you purchase Gems, payments are processed by our third-party payment provider, <a href="https://polar.sh" target="_blank" rel="noopener noreferrer" class="text-primary underline">Polar.sh</a>. We do not directly collect or store your payment card details. Polar.sh may collect:
+							When you purchase Gems, payments are processed by our third-party payment provider, <a
+								href="https://polar.sh"
+								target="_blank"
+								rel="noopener noreferrer"
+								class="text-primary underline">Polar.sh</a
+							>. We do not directly collect or store your payment card details. Polar.sh may
+							collect:
 						</p>
 						<ul class="ml-6 list-disc space-y-2">
 							<li>Payment card or payment method details (handled entirely by Polar.sh)</li>
@@ -95,7 +101,14 @@
 							<li>Transaction amounts and purchase history</li>
 						</ul>
 						<p class="text-muted-foreground mt-2 text-sm">
-							We receive only your email address, transaction confirmation, and product identifiers from Polar.sh to fulfill your Gem purchases. For details on how Polar.sh handles your payment data, please review <a href="https://polar.sh/legal/privacy" target="_blank" rel="noopener noreferrer" class="text-primary underline">Polar.sh's Privacy Policy</a>.
+							We receive only your email address, transaction confirmation, and product identifiers
+							from Polar.sh to fulfill your Gem purchases. For details on how Polar.sh handles your
+							payment data, please review <a
+								href="https://polar.sh/legal/privacy"
+								target="_blank"
+								rel="noopener noreferrer"
+								class="text-primary underline">Polar.sh's Privacy Policy</a
+							>.
 						</p>
 					</div>
 
@@ -127,7 +140,7 @@
 					</li>
 				</ul>
 
-				<h3 class="mb-2 mt-4 text-lg font-medium">
+				<h3 class="mt-4 mb-2 text-lg font-medium">
 					3.1 Automated Decision-Making (Prediction Markets)
 				</h3>
 				<p class="mb-2">
@@ -351,7 +364,15 @@
 						agreements)
 					</li>
 					<li>
-						<strong>Polar.sh (Payment Processor):</strong> When you purchase Gems, we share your user ID and email address with Polar.sh to process the transaction. Polar.sh acts as an independent data controller for payment data. See <a href="https://polar.sh/legal/privacy" target="_blank" rel="noopener noreferrer" class="text-primary underline">Polar.sh's Privacy Policy</a> for details.
+						<strong>Polar.sh (Payment Processor):</strong> When you purchase Gems, we share your
+						user ID and email address with Polar.sh to process the transaction. Polar.sh acts as an
+						independent data controller for payment data. See
+						<a
+							href="https://polar.sh/legal/privacy"
+							target="_blank"
+							rel="noopener noreferrer"
+							class="text-primary underline">Polar.sh's Privacy Policy</a
+						> for details.
 					</li>
 				</ul>
 			</Card.Content>
@@ -410,9 +431,7 @@
 			<Button variant="outline" size="lg" onclick={() => goto('/legal/terms')}>
 				Terms of Service →
 			</Button>
-			<Button variant="outline" size="lg" onclick={() => goto('/settings')}>
-				Export My Data
-			</Button>
+			<Button variant="outline" size="lg" onclick={() => goto('/settings')}>Export My Data</Button>
 		</div>
 	</Card.Root>
 </div>
