@@ -113,6 +113,19 @@ function createArcadeActivityStore() {
 
 export const arcadeActivityStore = createArcadeActivityStore();
 
+export interface AdminLogEntry {
+    id: number;
+    action: 'BAN' | 'UNBAN' | 'PROMO_CREATE' | 'PROMO_DELETE';
+    adminId: number;
+    adminUsername: string;
+    targetUserId: number | null;
+    targetUsername: string | null;
+    details: string | null;
+    createdAt: number;
+}
+
+export const adminLogStore = writable<AdminLogEntry[]>([]);
+
 let hasLoadedInitialTrades = false;
 
 // Comment callbacks
@@ -267,6 +280,10 @@ function handleWebSocketMessage(event: MessageEvent): void {
                 handleArcadeActivityMessage(message);
                 break;
 
+            case 'admin_log':
+                adminLogStore.update(logs => [message.data, ...logs.slice(0, 199)]);
+                break;
+
             case 'ping':
                 sendMessage({ type: 'pong' });
                 break;
@@ -350,7 +367,8 @@ function connect(): void {
                 console.log('Setting user subscription for user:', user.id);
                 socket!.send(JSON.stringify({
                     type: 'set_user',
-                    userId: String(user.id)
+                    userId: String(user.id),
+                    isAdmin: user.isAdmin === true
                 }));
             }
         })();
@@ -440,11 +458,12 @@ class WebSocketController {
         loadInitialTrades(mode);
     }
 
-    setUser(userId: string) {
+    setUser(userId: string, isAdmin: boolean = false) {
         if (socket && socket.readyState === WebSocket.OPEN) {
             socket.send(JSON.stringify({
                 type: 'set_user',
-                userId
+                userId,
+                isAdmin
             }));
         }
     }
