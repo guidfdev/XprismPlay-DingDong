@@ -15,8 +15,6 @@ export const POST: RequestHandler = async ({ request }) => {
 
     if (!code || !rewardAmount || !rewardType) {
         return json({ error: 'Code, reward amount, and reward type are required' }, { status: 400 });
-<<<<<<< HEAD
-=======
     }
 
     if (rewardAmount > 100000000000) {
@@ -33,7 +31,6 @@ export const POST: RequestHandler = async ({ request }) => {
 
     if (rewardType == 'GEMS' && rewardAmount > 15000) {
         return json({ error: 'thats not an int!' }, { status: 400 });
->>>>>>> 48076d138d7067239ebb4b5f458d3785fea4440d
     }
 
     const normalizedCode = code.trim().toUpperCase();
