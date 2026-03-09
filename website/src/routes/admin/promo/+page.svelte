@@ -21,7 +21,8 @@
 		Calendar01Icon,
 		CancelCircleIcon,
 		Loading03Icon,
-		Tick01Icon
+		Tick01Icon,
+		Cancel01Icon
 	} from '@hugeicons/core-free-icons';
 	import { USER_DATA } from '$lib/stores/user-data';
 	import { formatDate, getExpirationDate } from '$lib/utils';
@@ -32,7 +33,7 @@
 	let maxUses = $state('');
 	let expirationOption = $state('');
 	let rewardType = $state('BASE_CURRENCY');
-    
+
 	let isCreating = $state(false);
 	let createSuccess = $state(false);
 	let createMessage = $state('');
@@ -186,7 +187,7 @@
 									required
 								/>
 							</div>
-							
+
 							<div class="space-y-1">
 								<Label for="rewardType" class="text-sm">Reward Type *</Label>
 								<Select.Root type="single" bind:value={rewardType} disabled={isCreating}>
@@ -266,7 +267,9 @@
 								<AlertDescription class={createSuccess ? 'text-green-800 dark:text-green-200' : ''}>
 									{createMessage}
 									{#if createSuccess && rewardAmount}
-										<span class="font-semibold"> (+{rewardType === 'GEMS' ? `${rewardAmount} Gems` : `$${rewardAmount}`} reward)</span>
+										<span class="font-semibold">
+											(+{rewardType === 'GEMS' ? `${rewardAmount} Gems` : `$${rewardAmount}`} reward)</span
+										>
 									{/if}
 								</AlertDescription>
 							</Alert>
@@ -322,14 +325,30 @@
 										<code class="bg-muted rounded px-2 py-1 font-mono text-sm font-semibold">
 											{promo.code}
 										</code>
-										<Badge variant={promo.isActive ? 'default' : 'secondary'} class="text-xs">
-											{promo.isActive ? 'Active' : 'Inactive'}
-										</Badge>
+										<div class="flex items-center gap-2">
+											<Badge variant={promo.isActive ? 'default' : 'secondary'} class="text-xs">
+												{promo.isActive ? 'Active' : 'Inactive'}
+											</Badge>
+											<button
+												onclick={() => deletePromoCode(promo.id)}
+												disabled={isDeleting === promo.id}
+												class="text-muted-foreground hover:text-destructive transition-colors disabled:opacity-50"
+												title="Delete promo code"
+											>
+												{#if isDeleting === promo.id}
+													<HugeiconsIcon icon={Loading03Icon} class="h-4 w-4 animate-spin" />
+												{:else}
+													<HugeiconsIcon icon={Cancel01Icon} class="h-4 w-4" />
+												{/if}
+											</button>
+										</div>
 									</div>
 
 									<div class="grid grid-cols-2 gap-3 text-xs">
 										<span class="font-bold">
-											{promo.rewardType === 'GEMS' ? `${promo.rewardAmount} Gems` : `$${promo.rewardAmount}`}
+											{promo.rewardType === 'GEMS'
+												? `${promo.rewardAmount} Gems`
+												: `$${promo.rewardAmount}`}
 										</span>
 										<div class="flex items-center gap-1">
 											<HugeiconsIcon icon={UserGroupIcon} class="h-3 w-3" />

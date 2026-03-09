@@ -3,17 +3,16 @@
 	import * as Card from '$lib/components/ui/card';
 	import { Button } from '$lib/components/ui/button';
 	import { HugeiconsIcon } from '@hugeicons/svelte';
-	import { 
-		Shield01Icon, 
-		LegalHammerIcon, 
-		Ticket01Icon, 
+	import {
+		Shield01Icon,
+		LegalHammerIcon,
+		Ticket01Icon,
 		ArrowRight01Icon,
 		UserGroupIcon,
 		Analytics01Icon
 	} from '@hugeicons/core-free-icons';
 	import { goto } from '$app/navigation';
 
-	// Define the admin sections for the dashboard
 	const adminSections = [
 		{
 			title: 'User Management',
@@ -28,6 +27,13 @@
 			icon: Ticket01Icon,
 			url: '/admin/promo',
 			color: 'text-green-500'
+		},
+		{
+			title: 'Admin Logs',
+			description: 'Live feed of all moderator and admin actions.',
+			icon: Shield01Icon,
+			url: '/admin/logs',
+			color: 'text-orange-500'
 		}
 	];
 </script>
@@ -41,7 +47,10 @@
 	<div class="flex h-[80vh] items-center justify-center">
 		<div class="text-center">
 			<h1 class="text-2xl font-bold">Access Denied</h1>
-			<p class="text-muted-foreground">You don't have permission to access this page. If you are set as an admin, I have no idea why you are here.</p>
+			<p class="text-muted-foreground">
+				You don't have permission to access this page. If you are set as an admin, I have no idea
+				why you are here.
+			</p>
 		</div>
 	</div>
 {:else}
@@ -52,7 +61,9 @@
 			</div>
 			<div>
 				<h1 class="text-3xl font-bold tracking-tight">Admin Panel</h1>
-				<p class="text-muted-foreground text-sm">It has links to the other admin stuff, and not much more!.</p>
+				<p class="text-muted-foreground text-sm">
+					It has links to the other admin stuff, and not much more!.
+				</p>
 			</div>
 		</div>
 
@@ -69,9 +80,9 @@
 						<Card.Description>{section.description}</Card.Description>
 					</Card.Header>
 					<Card.Content>
-						<Button 
-							variant="outline" 
-							class="w-full justify-between" 
+						<Button
+							variant="outline"
+							class="w-full justify-between"
 							onclick={() => goto(section.url)}
 						>
 							Open {section.title}
