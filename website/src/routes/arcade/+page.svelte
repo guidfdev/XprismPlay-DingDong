@@ -17,6 +17,7 @@
 	import { HugeiconsIcon } from '@hugeicons/svelte';
 	import { Clock01Icon, PiggyBankIcon } from '@hugeicons/core-free-icons';
 	import { formatValue, formatRelativeTime, getPublicUrl } from '$lib/utils';
+	import { goto } from '$app/navigation';
 
 	let shouldSignIn = $state(false);
 	let balance = $state(0);
@@ -146,7 +147,7 @@
 											<HoverCard.Trigger
 												class="cursor-pointer font-medium underline-offset-4 hover:underline"
 											>
-												<div class="flex items-center gap-2">
+												<button class="flex items-center gap-2 cursor-pointer" type="button" on:click={()=>goto(`/user/${activity.username}`)}>
 													<Avatar.Root class="h-6 w-6">
 														<Avatar.Image
 															src={getPublicUrl(activity.userImage ?? null)}
@@ -157,7 +158,7 @@
 														>
 													</Avatar.Root>
 													<span class="text-sm">@{activity.username}</span>
-												</div>
+												</button>
 											</HoverCard.Trigger>
 											<HoverCard.Content class="w-80" side="top" sideOffset={3}>
 												<UserProfilePreview userId={parseInt(activity.userId)} />

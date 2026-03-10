@@ -26,7 +26,7 @@
 	import { MediaQuery } from 'svelte/reactivity';
 	import type { CoinData, FilterOption, VolatilityBadge, MarketResponse } from '$lib/types/market';
 	import AdLong from '$lib/components/self/ads/AdLong.svelte';
-
+	import { _ } from "svelte-i18n"
 	let { data } = $props();
 
 	let coins = $state<CoinData[]>([]);
@@ -44,24 +44,24 @@
 	let perPage = $derived(isDesktop.current ? 12 : 9);
 	let siblingCount = $derived(isDesktop.current ? 1 : 0);
 	const priceFilterOptions: FilterOption[] = [
-		{ value: 'all', label: 'All prices' },
-		{ value: 'under1', label: 'Under $1' },
-		{ value: '1to10', label: '$1 - $10' },
-		{ value: '10to100', label: '$10 - $100' },
-		{ value: 'over100', label: 'Over $100' }
+		{ value: 'all', label: $_("market.search.filters.price_range.all_prices") },
+		{ value: 'under1', label: $_("market.search.filters.price_range.under1") },
+		{ value: '1to10', label: $_("market.search.filters.price_range.1-10") },
+		{ value: '10to100', label: $_("market.search.filters.price_range.10-100") },
+		{ value: 'over100', label: $_("market.search.filters.price_range.over100") }
 	];
 
 	const changeFilterOptions: FilterOption[] = [
-		{ value: 'all', label: 'All changes' },
-		{ value: 'gainers', label: 'Gainers only' },
-		{ value: 'losers', label: 'Losers only' },
-		{ value: 'hot', label: 'Hot (±10%)' },
-		{ value: 'wild', label: 'Wild (±50%)' }
+		{ value: 'all', label: $_("market.search.filters.24h_change.all") },
+		{ value: 'gainers', label: $_("market.search.filters.24h_change.gainers") },
+		{ value: 'losers', label: $_("market.search.filters.24h_change.losers") },
+		{ value: 'hot', label: $_("market.search.filters.24h_change.hot") },
+		{ value: 'wild', label: $_("market.search.filters.24h_change.wild") }
 	];
 
 	const sortOrderOptions: FilterOption[] = [
-		{ value: 'desc', label: 'High to Low' },
-		{ value: 'asc', label: 'Low to High' }
+		{ value: 'desc', label: $_("market.search.filters.sort_order.high_low") },
+		{ value: 'asc', label: $_("market.search.filters.sort_order.low_high") }
 	];
 
 	const debouncedSearch = debounce(performSearch, 300);
@@ -268,9 +268,9 @@
 <div class="container mx-auto max-w-7xl p-6">
 	<header class="mb-8">
 		<div class="text-center">
-			<h1 class="mb-2 text-3xl font-bold">Market</h1>
+			<h1 class="mb-2 text-3xl font-bold">{$_("market.title")}</h1>
 			<p class="text-muted-foreground mb-6">
-				Discover coins, track performance, and find your next investment
+				{$_("market.description")}
 			</p>
 
 			<div class="mx-auto flex max-w-2xl items-center justify-center gap-2">
@@ -281,7 +281,7 @@
 					/>
 					<Input
 						bind:value={searchQuery}
-						placeholder="Search coins by name or symbol..."
+						placeholder={$_("market.search.placeholder")}
 						class="pr-4 pl-10"
 						onblur={updateSearchUrl}
 						onkeydown={handleSearchKeydown}
@@ -292,7 +292,7 @@
 					<Popover.Trigger>
 						<Button variant="outline" size="default" class="flex items-center gap-2">
 							<HugeiconsIcon icon={SlidersHorizontalIcon} class="h-4 w-4" />
-							Filters
+							{$_("market.search.filters.title")}
 							{#if hasActiveFilters}
 								<Badge variant="secondary" class="h-5 w-5 rounded-full p-0 text-xs">•</Badge>
 							{/if}
@@ -301,41 +301,42 @@
 					<Popover.Content class="w-80 p-4" align="end">
 						<div class="space-y-4">
 							<div class="space-y-2">
-								<Label class="text-sm font-medium">Sort By</Label>
+								<Label class="text-sm font-medium">{$_("market.search.filters.sort_by")}</Label>
 								<div class="grid grid-cols-2 gap-2">
 									<Button
 										variant={sortBy === 'marketCap' ? 'default' : 'outline'}
 										size="sm"
 										onclick={() => handleSortChange('marketCap')}
 									>
-										Market Cap
+										{$_("market.search.filters.marketcap")}
 									</Button>
 									<Button
 										variant={sortBy === 'currentPrice' ? 'default' : 'outline'}
 										size="sm"
 										onclick={() => handleSortChange('currentPrice')}
 									>
-										Price
+										{$_("market.search.filters.price")}
 									</Button>
 									<Button
 										variant={sortBy === 'change24h' ? 'default' : 'outline'}
 										size="sm"
 										onclick={() => handleSortChange('change24h')}
 									>
-										24h Change
+										{$_("market.search.filters.change24h")}
 									</Button>
 									<Button
 										variant={sortBy === 'volume24h' ? 'default' : 'outline'}
 										size="sm"
 										onclick={() => handleSortChange('volume24h')}
 									>
-										Volume
+										
+										{$_("market.search.filters.volume24h")}
 									</Button>
 								</div>
 							</div>
 
 							<div class="space-y-2">
-								<Label class="text-sm font-medium">Sort Order</Label>
+								<Label class="text-sm font-medium">{$_("market.search.filters.sort_order.title")}</Label>
 								<Select.Root
 									type="single"
 									bind:value={sortOrder}
@@ -357,7 +358,7 @@
 							</div>
 
 							<div class="space-y-2">
-								<Label class="text-sm font-medium">Price Range</Label>
+								<Label class="text-sm font-medium">{$_("market.search.filters.price_range.title")}</Label>
 								<Select.Root
 									type="single"
 									bind:value={priceFilter}
@@ -379,7 +380,7 @@
 							</div>
 
 							<div class="space-y-2">
-								<Label class="text-sm font-medium">24h Change</Label>
+								<Label class="text-sm font-medium">{$_("market.search.filters.24h_change.title")}</Label>
 								<Select.Root
 									type="single"
 									bind:value={changeFilter}
@@ -402,9 +403,9 @@
 
 							<div class="flex gap-2 pt-2">
 								<Button variant="outline" size="sm" onclick={resetFilters} class="flex-1">
-									Reset
+									{$_("global.reset")}
 								</Button>
-								<Button size="sm" onclick={applyFilters} class="flex-1">Apply</Button>
+								<Button size="sm" onclick={applyFilters} class="flex-1">{$_("global.apply")}</Button>
 							</div>
 						</div>
 					</Popover.Content>
@@ -421,11 +422,11 @@
 	{#if !loading && totalCount > 0}
 		<div class="mb-4 flex items-center justify-between">
 			<div class="text-muted-foreground text-sm">
-				Showing {startIndex}-{endIndex} of {totalCount} coins
+				{$_("market.showing").replace("{{startIndex}}", startIndex.toString()).replace("{{endIndex}}", endIndex.toString()).replace("{{totalCount}}", totalCount.toString())}
 			</div>
 			{#if hasActiveFilters}
 				<Button variant="link" size="sm" onclick={resetFilters} class="h-auto p-0">
-					Clear all filters
+					{$_("market.search.filters.clear")}
 				</Button>
 			{/if}
 		</div>
@@ -448,7 +449,7 @@
 					{/if}
 				</div>
 				{#if hasActiveFilters}
-					<Button variant="outline" onclick={resetFilters}>Clear all filters</Button>
+					<Button variant="outline" onclick={resetFilters}>{$_("market.search.filters.clear")}</Button>
 				{/if}
 			</div>
 		</div>

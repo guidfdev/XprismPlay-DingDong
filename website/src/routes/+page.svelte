@@ -76,9 +76,9 @@
 </script>
 
 <SEO
-    title="XprismPlay"
-    description="A realistic crypto trading simulator based on Rugplay that lets you experience the risks and mechanics of decentralized exchanges without real financial consequences. Create coins, trade with liquidity pools, and learn about 'rug pulls' in a... relatively safe environment :)"
-    keywords="crypto simulation game, trading practice game, rug pull simulation, virtual cryptocurrency game"
+	title="XprismPlay"
+	description="A realistic crypto trading simulator based on Rugplay that lets you experience the risks and mechanics of decentralized exchanges without real financial consequences. Create coins, trade with liquidity pools, and learn about 'rug pulls' in a... relatively safe environment :)"
+	keywords="crypto simulation game, trading practice game, rug pull simulation, virtual cryptocurrency game"
 />
 
 <SignInConfirmDialog bind:open={shouldSignIn} />

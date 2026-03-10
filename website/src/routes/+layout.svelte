@@ -98,7 +98,7 @@
 			'/about': $_('page_names.about'),
 			'/legal/privacy': 'Privacy Policy',
 			'/legal/terms': 'Terms of Service',
-			'/shop': 'Shop'
+			'/shop': $_('page_names.shop')
 		};
 
 		// Handle dynamic routes

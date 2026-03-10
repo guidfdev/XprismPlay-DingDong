@@ -9,6 +9,7 @@
 	import { getPublicUrl } from '$lib/utils';
 	import { HugeiconsIcon } from '@hugeicons/svelte';
 	import { ArrowUp01Icon, ArrowDown01Icon, ArrowUpDownIcon } from '@hugeicons/core-free-icons';
+	import { _ } from 'svelte-i18n'
 
 	interface Column {
 		key: string;
@@ -25,7 +26,7 @@
 		onRowClick,
 		emptyMessage = 'No data available',
 		emptyIcon,
-		emptyTitle = 'No data',
+		emptyTitle = $_("leaderboard.no_data"),
 		emptyDescription = '',
 		enableUserPreview = false
 	}: {

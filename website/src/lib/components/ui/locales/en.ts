@@ -6,7 +6,9 @@ export default {
 	},
 	global: {
 		price: 'Price',
-		name: 'Name'
+		name: 'Name',
+		reset: "Reset",
+		apply: "Apply"
 	},
 	greetings: {
 		good_morning: 'Good Morning, {{name}}!',
@@ -26,7 +28,8 @@ export default {
 		treemap: 'Treemap',
 		create_coin: 'Create Coin',
 		notifications: 'Notifications',
-		about: 'About'
+		about: 'About',
+		live_trades: 'Live Trades'
 	},
 	main: {
 		title: 'Welcome to XprismPlay!',
@@ -48,6 +51,73 @@ export default {
 				google: 'Continue with Google'
 			},
 			terms: ['By continuing, you agree to our', 'Terms of Service', 'and', 'Privacy Policy']
+		}
+	},
+	leaderboard: {
+		title: "Leaderboard",
+		description: "Top performers and market activity",
+		no_data: "No data",
+		failed: {
+			title: "Failed to load leaderboard",
+			try_again: "Try Again"
+		},
+		rugpullers: {
+			title: "Top Rugpullers (24h)",
+			description: "Users who made the most profit from selling coins today",
+			no_data: "No major profits recorded today"
+		},
+		losers: {
+			title: "Biggest Losses (24h)",
+			description: "Users who experienced the largest losses today",
+			no_data: "No major losses recorded today"
+		},
+		top_cash: {
+			title: "Top Cash Holders",
+			description: "Users with the highest liquid cash balances",
+			no_data: "Everyone's invested! 💸"
+		},
+		portfolio: {
+			title: "Highest Portfolio Values",
+			description: "Users with the largest total portfolio valuations (including illiquid)",
+			no_data: "No large portfolios yet! 📉"
+		}
+	},
+	market: {
+		title: "Market",
+		description: "Discover coins, track performance, and find your next investment",
+		showing: "Showing {{startIndex}}-{{endIndex}} of {{totalCount}} coins",
+		search: {
+			placeholder: "Search coins by name or symbol...",
+			filters: {
+				title: "Filters",
+				sort_by: "Sort By",
+				marketcap: "Market Cap",
+				change24h: "Change (24h)",
+				price: "Price",
+				volume24h: "Volume (24h)",
+				clear: "Clear all filters",
+				sort_order: {
+					title: "Sort Order",
+					high_low: "High to Low",
+					low_high: "Low to High"
+				},
+				price_range: {
+					title: "Price Range",
+					all_prices: "All Prices",
+					under1: "Under $1",
+					'1-10': "$1 - $10",
+					'10-100': "$10 - $100",
+					over100: "Over $100"
+				},
+				'24h_change': {
+					title: "24h Change",
+					all: "All Changes",
+					gainers: "Gainers only",
+					losers: "LOsers only",
+					hot: "Hot (10%)",
+					wild: "Wild (50%)"
+				}
+			}
 		}
 	}
 };

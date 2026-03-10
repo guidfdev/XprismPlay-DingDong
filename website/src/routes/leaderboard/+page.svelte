@@ -27,6 +27,7 @@
 	import ProfileBadges from '$lib/components/self/ProfileBadges.svelte';
 	import UserName from '$lib/components/self/UserName.svelte';
 	import AdSquare from '$lib/components/self/ads/AdSquare.svelte';
+	import { _ } from 'svelte-i18n'
 
 	let searchOffset = $state(0);
 	let searchQuery = $state('');
@@ -277,8 +278,8 @@
 	<header class="mb-6 md:mb-8">
 		<div class="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
 			<div>
-				<h1 class="text-2xl font-bold md:text-3xl">Leaderboard</h1>
-				<p class="text-muted-foreground text-sm md:text-base">Top performers and market activity</p>
+				<h1 class="text-2xl font-bold md:text-3xl">{$_("leaderboard.title")}</h1>
+				<p class="text-muted-foreground text-sm md:text-base">{$_("leaderboard.description")}</p>
 			</div>
 			<div class="flex items-center gap-4">
 				<div class="relative flex flex-grow items-center">
@@ -326,8 +327,8 @@
 	{:else if !leaderboardData}
 		<div class="flex h-96 items-center justify-center">
 			<div class="text-center">
-				<div class="text-muted-foreground mb-4 text-lg md:text-xl">Failed to load leaderboard</div>
-				<Button onclick={() => fetchLeaderboardData()}>Try Again</Button>
+				<div class="text-muted-foreground mb-4 text-lg md:text-xl">{$_("leaderboard.failed.title")}</div>
+				<Button onclick={() => fetchLeaderboardData()}>{$_("leaderboard.failed.try_again")}</Button>
 			</div>
 		</div>
 	{:else}
@@ -445,10 +446,10 @@
 					<Card.Header class="pb-3 md:pb-4">
 						<Card.Title class="flex items-center gap-2 text-lg text-red-600 md:text-xl">
 							<HugeiconsIcon icon={SkullIcon} class="h-5 w-5 md:h-6 md:w-6" />
-							<span class="truncate">Top Rugpullers (24h)</span>
+							<span class="truncate">{$_("leaderboard.rugpullers.title")}</span>
 						</Card.Title>
 						<Card.Description class="text-xs md:text-sm">
-							Users who made the most profit from selling coins today
+							{$_("leaderboard.rugpullers.description")}
 						</Card.Description>
 					</Card.Header>
 					<Card.Content class="p-3 pt-0 md:p-6 md:pt-0">
@@ -456,7 +457,7 @@
 							columns={rugpullersColumns}
 							data={leaderboardData.topRugpullers}
 							onRowClick={(user) => goto(`/user/${user.userUsername || user.username}`)}
-							emptyMessage="No major profits recorded today"
+							emptyMessage={$_("leaderboard.rugpullers.no_data")}
 							enableUserPreview={true}
 						/>
 					</Card.Content>
@@ -467,10 +468,10 @@
 					<Card.Header class="pb-3 md:pb-4">
 						<Card.Title class="flex items-center gap-2 text-lg text-orange-600 md:text-xl">
 							<HugeiconsIcon icon={TradeDownIcon} class="h-5 w-5 md:h-6 md:w-6" />
-							<span class="truncate">Biggest Losses (24h)</span>
+							<span class="truncate">{$_("leaderboard.losers.title")}</span>
 						</Card.Title>
 						<Card.Description class="text-xs md:text-sm"
-							>Users who experienced the largest losses today</Card.Description
+							>{$_("leaderboard.losers.description")}</Card.Description
 						>
 					</Card.Header>
 					<Card.Content class="p-3 pt-0 md:p-6 md:pt-0">
@@ -478,7 +479,7 @@
 							columns={losersColumns}
 							data={leaderboardData.biggestLosers}
 							onRowClick={(user) => goto(`/user/${user.userUsername || user.username}`)}
-							emptyMessage="No major losses recorded today"
+							emptyMessage={$_("leaderboard.losers.no_data")}
 							enableUserPreview={true}
 						/>
 					</Card.Content>
@@ -493,10 +494,10 @@
 					<Card.Header class="pb-3 md:pb-4">
 						<Card.Title class="flex items-center gap-2 text-lg text-green-600 md:text-xl">
 							<HugeiconsIcon icon={CrownIcon} class="h-5 w-5 md:h-6 md:w-6" />
-							<span class="truncate">Top Cash Holders</span>
+							<span class="truncate">{$_("leaderboard.top_cash.title")}</span>
 						</Card.Title>
 						<Card.Description class="text-xs md:text-sm"
-							>Users with the highest liquid cash balances</Card.Description
+							>{$_("leaderboard.top_cash.description")}</Card.Description
 						>
 					</Card.Header>
 					<Card.Content class="p-3 pt-0 md:p-6 md:pt-0">
@@ -504,7 +505,7 @@
 							columns={cashKingsColumns}
 							data={leaderboardData.cashKings}
 							onRowClick={(user) => goto(`/user/${user.userUsername || user.username}`)}
-							emptyMessage="Everyone's invested! 💸"
+							emptyMessage={$_("leaderboard.top_cash.no_data")}
 							enableUserPreview={true}
 						/>
 					</Card.Content>
@@ -515,10 +516,10 @@
 					<Card.Header class="pb-3 md:pb-4">
 						<Card.Title class="flex items-center gap-2 text-lg text-cyan-600 md:text-xl">
 							<HugeiconsIcon icon={Award01Icon} class="h-5 w-5 md:h-6 md:w-6" />
-							<span class="truncate">Highest Portfolio Values</span>
+							<span class="truncate">{$_("leaderboard.portfolio.title")}</span>
 						</Card.Title>
 						<Card.Description class="text-xs md:text-sm"
-							>Users with the largest total portfolio valuations (including illiquid)</Card.Description
+							>{$_("leaderboard.portfolio.description")}</Card.Description
 						>
 					</Card.Header>
 					<Card.Content class="p-3 pt-0 md:p-6 md:pt-0">
@@ -526,7 +527,7 @@
 							columns={millionairesColumns}
 							data={leaderboardData.paperMillionaires}
 							onRowClick={(user) => goto(`/user/${user.userUsername || user.username}`)}
-							emptyMessage="No large portfolios yet! 📉"
+							emptyMessage={$_("leaderboard.portfolio.no_data")}
 							enableUserPreview={true}
 						/>
 					</Card.Content>
