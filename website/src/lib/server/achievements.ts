@@ -32,6 +32,10 @@ export interface AchievementContext {
 	slotsWinType?: string; // '3 OF A KIND' etc
 	minesTilesRevealed?: number; // for mines cashout
 	minesCount?: number; // number of mines in the game
+	floor?: number; //tower
+	difficulty?: any; //tower
+	cardsValue?: number;
+
 
 	// Streak context
 	newStreak?: number;
@@ -314,6 +318,12 @@ async function checkAchievement(
 			return (
 				ctx.arcadeWon === true && (ctx.minesTilesRevealed ?? 0) >= 22 && (ctx.minesCount ?? 0) === 3
 			);
+		
+		case 'tower_god':
+    		return ctx.arcadeWon === true && ctx.floor == 10 && (ctx.difficulty as any) == 'hard' && (ctx.arcadeWager ?? 0) >= 10
+
+		case 'blackjack_21':
+    		return ctx.arcadeWon === true && (ctx.cardsValue ?? 0) == 21
 
 		case 'arcade_100': {
 			const [userData] = await db

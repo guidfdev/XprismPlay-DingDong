@@ -71,7 +71,9 @@ export const POST: RequestHandler = async ({ request }) => {
 
 			await checkAndAwardAchievements(userId, ['arcade', 'wealth'], {
 				arcadeWon: false,
-				arcadeWager: game.betAmount
+				arcadeWager: game.betAmount,
+				floor: game.currentFloor,
+				difficulty: game.difficulty
 			});
 
 			return json({
@@ -136,7 +138,9 @@ export const POST: RequestHandler = async ({ request }) => {
 
 			await checkAndAwardAchievements(userId, ['arcade', 'wealth'], {
 				arcadeWon: true,
-				arcadeWager: game.betAmount
+				arcadeWager: game.betAmount,
+				floor: game.currentFloor,
+				difficulty: game.difficulty
 			});
 
 			return json({

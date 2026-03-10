@@ -104,7 +104,9 @@ export const POST: RequestHandler = async ({ request }) => {
 				);
 				await checkAndAwardAchievements(userId, ['arcade'], {
 					arcadeWon: won,
-					arcadeWager: result.amountWagered
+					arcadeWager: result.amountWagered,
+					floor: game.currentFloor,
+					difficulty: game.difficulty
 				});
 			} catch (e) {
 				console.error('Tower cashout side-effect error:', e);

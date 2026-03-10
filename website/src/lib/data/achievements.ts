@@ -297,7 +297,7 @@ export const ACHIEVEMENTS: AchievementDef[] = [
 		category: 'creation'
 	},
 
-	// ARCADE (11)
+	// ARCADE (14)
 	{
 		id: 'first_arcade',
 		name: 'Feeling Lucky',
@@ -346,6 +346,26 @@ export const ACHIEVEMENTS: AchievementDef[] = [
 		difficulty: 'legendary',
 		cashReward: 50000,
 		gemReward: 150,
+		category: 'arcade'
+	},
+	{
+		id: 'tower_god',
+		name: 'Tower God',
+		description: 'Get to floor 10 on hard mode and cash out (must bet at least $10)',
+		icon: 'elevator.png',
+		difficulty: 'legendary',
+		cashReward: 100000,
+		gemReward: 600,
+		category: 'arcade'
+	},
+	{
+		id: 'blackjack_21',
+		name: 'Right on 21',
+		description: 'Win blackjack by landing on 21',
+		icon: 'blackjack21.png',
+		difficulty: 'easy',
+		cashReward: 5000,
+		gemReward: 25,
 		category: 'arcade'
 	},
 	{
