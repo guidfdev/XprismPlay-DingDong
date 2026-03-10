@@ -105,7 +105,7 @@
 </script>
 
 <svelte:head>
-	<title>Admin Logs | Rugplay</title>
+	<title>Admin Logs | XprismPlay</title>
 	<meta name="robots" content="noindex, nofollow" />
 </svelte:head>
 

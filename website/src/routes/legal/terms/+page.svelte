@@ -662,7 +662,7 @@
 					<strong>Contact:</strong>
 					<a href="mailto:{CONTACT_EMAIL}" class="text-primary underline">{CONTACT_EMAIL}</a>
 				</p>
-				<p class="mb-2"><strong>Platform:</strong> Rugplay</p>
+				<p class="mb-2"><strong>Platform:</strong> XprismPlay</p>
 			</div>
 		</div>
 

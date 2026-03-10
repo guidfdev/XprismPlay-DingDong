@@ -10,7 +10,7 @@ export default {
 		price: 'Preço',
 		name: 'Nome',
 		reset: 'Resetar',
-		apply: "Aplicar"
+		apply: 'Aplicar'
 	},
 	greetings: {
 		good_morning: 'Bom Dia, {{name}}!',
@@ -61,68 +61,68 @@ export default {
 		}
 	},
 	leaderboard: {
-		title: "Placar de Líderes",
-		description: "Maiores desempenhos e atividade de mercado",
-		no_data: "Sem Dados",
+		title: 'Placar de Líderes',
+		description: 'Maiores desempenhos e atividade de mercado',
+		no_data: 'Sem Dados',
 		failed: {
-			title: "Ocorreu um erro ao carregar o Placar de Líderes",
-			try_again: "Tentar Novamente"
+			title: 'Ocorreu um erro ao carregar o Placar de Líderes',
+			try_again: 'Tentar Novamente'
 		},
 		rugpullers: {
-			title: "Maiores Rugpullers (24h)",
-			description: "Usuários que mais lucraram vendendo moedas hoje",
-			no_data: "Nenhum lucro significativo registrado hoje"
+			title: 'Maiores Rugpullers (24h)',
+			description: 'Usuários que mais lucraram vendendo moedas hoje',
+			no_data: 'Nenhum lucro significativo registrado hoje'
 		},
 		losers: {
-			title: "Maiores Perdas (24h)",
-			description: "Usuários que mais perderam dinheiro hoje",
-			no_data: "Nenhuma perda significativa registrada hoje"
+			title: 'Maiores Perdas (24h)',
+			description: 'Usuários que mais perderam dinheiro hoje',
+			no_data: 'Nenhuma perda significativa registrada hoje'
 		},
 		top_cash: {
-			title: "Maiores Detentores de Dinheiro",
-			description: "Usuários com maior saldo de dinheiro líquido",
-			no_data: "Todos Investiram! 💸"
+			title: 'Maiores Detentores de Dinheiro',
+			description: 'Usuários com maior saldo de dinheiro líquido',
+			no_data: 'Todos Investiram! 💸'
 		},
 		portfolio: {
-			title: "Maiores Valores de Portfólios",
-			description: "Usuários com os maiores valores de portfólio (incluindo não líquido)",
-			no_data: "Ainda sem grandes portfólios! 📉"
+			title: 'Maiores Valores de Portfólios',
+			description: 'Usuários com os maiores valores de portfólio (incluindo não líquido)',
+			no_data: 'Ainda sem grandes portfólios! 📉'
 		}
 	},
 	market: {
-		title: "Mercado",
-		description: "Descubra Moedas, Acompanhe seu desempenho, e encontre seu próximo investimento",
-		showing: "Mostrando {{startIndex}}-{{endIndex}} de {{totalCount}} moedas",
+		title: 'Mercado',
+		description: 'Descubra Moedas, Acompanhe seu desempenho, e encontre seu próximo investimento',
+		showing: 'Mostrando {{startIndex}}-{{endIndex}} de {{totalCount}} moedas',
 		search: {
-			placeholder: "Pesquisar moedas pelo nome ou símbolo...",
+			placeholder: 'Pesquisar moedas pelo nome ou símbolo...',
 			filters: {
-				title: "Filtros",
-				sort_by: "Sortear por",
-				change24h: "Mudança (24h)",
-				price: "Preço",
-				marketcap: "Capitalização",
-				volume24h: "Volume (24h)",
-				clear: "Limpar todos os filtros",
+				title: 'Filtros',
+				sort_by: 'Sortear por',
+				change24h: 'Mudança (24h)',
+				price: 'Preço',
+				marketcap: 'Capitalização',
+				volume24h: 'Volume (24h)',
+				clear: 'Limpar todos os filtros',
 				sort_order: {
-					title: "Ordem de Sorteio",
-					high_low: "Alto para Baixo",
-					low_high: "Baixo para Alto"
+					title: 'Ordem de Sorteio',
+					high_low: 'Alto para Baixo',
+					low_high: 'Baixo para Alto'
 				},
 				price_range: {
-					title: "Faixa de Preço",
-					all_prices: "Todos os Preços",
-					under1: "Menos de $1",
-					'1-10': "$1 - $10",
-					'10-100': "$10 - $100",
-					over100: "Acima de $100"
+					title: 'Faixa de Preço',
+					all_prices: 'Todos os Preços',
+					under1: 'Menos de $1',
+					'1-10': '$1 - $10',
+					'10-100': '$10 - $100',
+					over100: 'Acima de $100'
 				},
 				'24h_change': {
-					title: "Mudança em 24h",
-					all: "Todas as Mudanças",
-					gainers: "Apenas os Ganhadores",
-					losers: "Apenas os Perdedores",
-					hot: "Quente (10%)",
-					wild: "Selvagem (50%)"
+					title: 'Mudança em 24h',
+					all: 'Todas as Mudanças',
+					gainers: 'Apenas os Ganhadores',
+					losers: 'Apenas os Perdedores',
+					hot: 'Quente (10%)',
+					wild: 'Selvagem (50%)'
 				}
 			}
 		}

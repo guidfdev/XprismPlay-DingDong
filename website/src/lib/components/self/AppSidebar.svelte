@@ -196,7 +196,7 @@
 		<div class="flex items-center gap-2 px-2 py-2">
 			<img src="/rugplay.svg" class="h-5 w-5" alt="twoblade" />
 			<div class="flex items-center gap-2">
-				<span class="text-base font-semibold">Rugplay</span>
+				<span class="text-base font-semibold">XprismPlay</span>
 				{#if $USER_DATA?.isAdmin}
 					<span class="text-muted-foreground text-xs">| Admin</span>
 				{/if}

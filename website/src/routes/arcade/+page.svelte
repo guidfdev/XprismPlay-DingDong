@@ -147,7 +147,11 @@
 											<HoverCard.Trigger
 												class="cursor-pointer font-medium underline-offset-4 hover:underline"
 											>
-												<button class="flex items-center gap-2 cursor-pointer" type="button" on:click={()=>goto(`/user/${activity.username}`)}>
+												<button
+													class="flex cursor-pointer items-center gap-2"
+													type="button"
+													on:click={() => goto(`/user/${activity.username}`)}
+												>
 													<Avatar.Root class="h-6 w-6">
 														<Avatar.Image
 															src={getPublicUrl(activity.userImage ?? null)}

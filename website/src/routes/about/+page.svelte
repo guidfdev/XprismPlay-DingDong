@@ -35,7 +35,7 @@
 	<div class="space-y-4 text-center">
 		<div class="mb-4 flex items-center justify-center gap-2">
 			<img src="/rugplay.svg" class="h-12 w-12" alt="Rugplay" />
-			<h1 class="text-4xl font-bold">Rugplay</h1>
+			<h1 class="text-4xl font-bold">XprismPlay</h1>
 		</div>
 		<p class="text-muted-foreground mx-auto max-w-2xl text-lg">
 			A crypto trading simulator where you can practice trading without losing real money. Create

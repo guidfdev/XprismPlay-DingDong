@@ -39,7 +39,7 @@
 </script>
 
 <svelte:head>
-	<title>Admin Panel of Rugplay</title>
+	<title>Admin Panel of XprismPlay</title>
 	<meta name="robots" content="noindex, nofollow" />
 </svelte:head>
 
