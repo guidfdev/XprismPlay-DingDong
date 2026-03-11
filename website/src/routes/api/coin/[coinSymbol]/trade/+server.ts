@@ -20,7 +20,7 @@ export async function POST({ params, request }) {
 	const { coinSymbol } = params;
 	const { type, amount } = await request.json();
 
-	if (!['BUY', 'SELL'].includes(type)) {
+	if (!['BUY', 'SELL', 'BURN'].includes(type)) {
 		throw error(400, 'Invalid transaction type');
 	}
 
@@ -260,7 +260,7 @@ export async function POST({ params, request }) {
 				priceImpact,
 				newBalance: userBalance - totalCost
 			});
-		} else {
+		} else if (type === "SELL") {
 			// AMM SELL: amount = number of coins to sell
 			const [userHolding] = await tx
 				.select({ quantity: userPortfolio.quantity })
@@ -385,6 +385,94 @@ export async function POST({ params, request }) {
 				newPrice,
 				priceImpact,
 				newBalance: userBalance + totalCost
+			});
+		} else if (type === 'BURN') {
+			// AMM BURN: destroy tokens from user's wallet
+			const [userHolding] = await tx
+				.select({ quantity: userPortfolio.quantity })
+				.from(userPortfolio)
+				.where(and(eq(userPortfolio.userId, userId), eq(userPortfolio.coinId, coinData.id)))
+				.limit(1);
+
+			if (!userHolding || Number(userHolding.quantity) < amount) {
+				throw error(
+					400,
+					`Insufficient coins. You have ${userHolding ? Number(userHolding.quantity) : 0} but trying to burn ${amount}`
+				);
+			}
+
+			// 1. Remove from user portfolio
+			const newQuantity = Number(userHolding.quantity) - amount;
+			if (newQuantity > 0.000001) {
+				await tx
+					.update(userPortfolio)
+					.set({
+						quantity: newQuantity.toString(),
+						updatedAt: new Date()
+					})
+					.where(and(eq(userPortfolio.userId, userId), eq(userPortfolio.coinId, coinData.id)));
+			} else {
+				await tx
+					.delete(userPortfolio)
+					.where(and(eq(userPortfolio.userId, userId), eq(userPortfolio.coinId, coinData.id)));
+			}
+
+			// 2. Reduce circulating supply & market cap
+			const newCirculatingSupply = Number(coinData.circulatingSupply) - amount;
+			const newMarketCap = Math.min(newCirculatingSupply * currentPrice, 1e38);
+
+			await tx
+				.update(coin)
+				.set({
+					circulatingSupply: newCirculatingSupply.toString(),
+					marketCap: newMarketCap.toString(),
+					updatedAt: new Date()
+				})
+				.where(eq(coin.id, coinData.id));
+
+			// 3. Insert transaction
+			await tx.insert(transaction).values({
+				userId,
+				coinId: coinData.id,
+				type: 'BURN',
+				quantity: amount.toString(),
+				pricePerCoin: currentPrice.toString(),
+				totalBaseCurrencyAmount: '0', // Burning yields $0
+				note: 'Token burn'
+			});
+
+			// 4. Update live feeds
+			const tradeData = {
+				type: 'BURN',
+				username: userData.username,
+				userImage: userData.image || '',
+				amount: amount,
+				coinSymbol: normalizedSymbol,
+				coinName: coinData.name,
+				coinIcon: coinData.icon || '',
+				totalValue: amount * currentPrice, // Show the value of what was burned
+				price: currentPrice,
+				timestamp: Date.now(),
+				userId: userId.toString()
+			};
+
+			const priceUpdateData = {
+				currentPrice: currentPrice,
+				marketCap: newMarketCap,
+				change24h: Number(coinData.change24h),
+				volume24h: Number(coinData.volume24h),
+				poolCoinAmount: poolCoinAmount,
+				poolBaseCurrencyAmount: poolBaseCurrencyAmount
+			};
+
+			await redis.publish(`prices:${normalizedSymbol}`, JSON.stringify(priceUpdateData));
+			await redis.publish('trades:all', JSON.stringify({ type: 'all-trades', data: tradeData }));
+
+			return json({
+				success: true,
+				type: 'BURN',
+				coinsBurned: amount,
+				newBalance: userBalance
 			});
 		}
 	});

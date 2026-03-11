@@ -136,11 +136,13 @@
 			}
 
 			haptic.trigger('success');
-			toast.success(`${type === 'BUY' ? 'Bought' : 'Sold'} successfully!`, {
+			toast.success(`${type === 'BUY' ? 'Bought' : type === 'SELL' ? 'Sold' : 'Burned'} successfully!`, {
 				description:
 					type === 'BUY'
 						? `Purchased ${result.coinsBought.toFixed(6)} ${coin.symbol} for $${result.totalCost.toFixed(6)}`
-						: `Sold ${result.coinsSold.toFixed(6)} ${coin.symbol} for $${result.totalReceived.toFixed(6)}`
+						: type === 'SELL'
+							? `Sold ${result.coinsSold.toFixed(6)} ${coin.symbol} for $${result.totalReceived.toFixed(6)}`
+							: `Burned ${result.coinsBurned.toFixed(6)} ${coin.symbol}`
 			});
 
 			onSuccess?.();

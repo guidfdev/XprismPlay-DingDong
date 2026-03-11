@@ -19,7 +19,8 @@ export const transactionTypeEnum = pgEnum('transaction_type', [
 	'BUY',
 	'SELL',
 	'TRANSFER_IN',
-	'TRANSFER_OUT'
+	'TRANSFER_OUT',
+	'BURN'
 ]);
 export const predictionMarketEnum = pgEnum('prediction_market_status', [
 	'ACTIVE',

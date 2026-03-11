@@ -179,6 +179,9 @@
 	async function handleTradeSuccess() {
 		await Promise.all([loadCoinData(), loadUserHolding(), fetchPortfolioSummary()]);
 	}
+	async function handleBurnSuccess() {
+		await Promise.all([loadCoinData(), loadUserHolding(), fetchPortfolioSummary()]);
+	}
 	function handlePriceUpdate(priceUpdate: PriceUpdate) {
 		if (coin && priceUpdate.coinSymbol === coinSymbol.toUpperCase()) {
 			// throttle updates to prevent excessive UI updates, 1s interval
@@ -545,6 +548,7 @@
 		{userHolding}
 		onSuccess={handleTradeSuccess}
 	/>
+	<!-- (marking here with a change for my development later) -->
 		<TradeModal
 		bind:open={burnModalOpen}
 		type="BURN"
