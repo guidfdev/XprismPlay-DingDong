@@ -43,7 +43,7 @@ export const NAME_COLOR_CATALOG: NameColorItem[] = [
 	// Rare
 	{ key: 'purple', label: 'Purple Haze', rarity: 'rare', price: 700, classes: 'text-purple-500' },
 	{ key: 'red', label: 'Red Alert', rarity: 'rare', price: 700, classes: 'text-red-500' },
-	{ key: 'white', label: 'White Color', rarity: 'rare', price: 700, classes: 'text-white-500' },
+	{ key: 'white', label: 'Default Color', rarity: 'rare', price: 700, classes: 'text-white-500' },
 	// Epic
 	{ key: 'gold', label: 'Gold Rush', rarity: 'epic', price: 1400, classes: 'text-yellow-400' },
 	{

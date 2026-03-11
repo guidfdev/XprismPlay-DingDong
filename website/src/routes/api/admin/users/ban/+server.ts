@@ -32,11 +32,11 @@ export const POST: RequestHandler = async ({ request }) => {
 	try {
 		// 2. Fetch the target user's details, including head admin status
 		const [targetUser] = await db
-			.select({ 
-				id: user.id, 
-				username: user.username, 
-				isAdmin: user.isAdmin, 
-				isHeadAdmin: user.isHeadAdmin 
+			.select({
+				id: user.id,
+				username: user.username,
+				isAdmin: user.isAdmin,
+				isHeadAdmin: user.isHeadAdmin
 			})
 			.from(user)
 			.where(eq(user.username, username.trim()))
