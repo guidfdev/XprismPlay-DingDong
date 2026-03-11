@@ -102,7 +102,7 @@
 					rewardAmount: parseFloat(rewardAmount),
 					rewardType: rewardType,
 					maxUses: maxUses ? parseInt(maxUses) : null,
-					expiresAt: expirationOption ? getExpirationDate(expirationOption) : null
+					expiresAt: expirationOption ? getExpirationDate(expirationOption) : null,
 					isSecret: isSecret
 				})
 			});
@@ -285,7 +285,7 @@
 							<div class="space-y-0.5">
 								<Label for="secret">Secret Promo Code</Label>
 								<p class="text-muted-foreground text-xs">
-									Hide this code from the active list below. It will still be redeemable.
+									Hide this code from the list. It will still be redeemable.
 								</p>
 							</div>
 							<Switch id="secret" bind:checked={isSecret} disabled={isCreating} />
