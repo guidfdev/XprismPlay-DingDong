@@ -777,6 +777,12 @@
 												${Number(coin.poolBaseCurrencyAmount).toLocaleString()}
 											</span>
 										</div>
+										<div class="flex justify-between">
+											<span class="text-muted-foreground text-sm">Burned Coins:</span>
+											<span class="font-mono text-sm">
+												{Number(1_000_000_000 - coin.circulatingSupply).toFixed(2)}
+											</span>
+										</div>
 									</div>
 								</div>
 								<div>
