@@ -46,7 +46,7 @@ export const POST: RequestHandler = async ({ request }) => {
 		})
 		.returning();
     
-	if (!isSecret)
+	if (!isSecret) {
 		writeAdminLog(
 			userId,
 			'PROMO_CREATE',
