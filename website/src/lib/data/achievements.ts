@@ -549,7 +549,7 @@ export const ACHIEVEMENTS: AchievementDef[] = [
 	{
 		id: 'prestige_7',
 		name: 'Ascended',
-		description: 'Reach Prestige VII (last prestige)',
+		description: 'Reach Prestige VII (max prestige)',
 		icon: 'green_diamond.png',
 		difficulty: 'legendary',
 		cashReward: 150000,
