@@ -4,7 +4,7 @@ import { redis } from '$lib/server/redis';
 import { user } from '$lib/server/db/schema';
 import { eq } from 'drizzle-orm';
 
-export type AdminAction = 'BAN' | 'UNBAN' | 'PROMO_CREATE' | 'PROMO_DELETE';
+export type AdminAction = 'BAN' | 'UNBAN' | 'PROMO_CREATE' | 'PROMO_DELETE' | 'TOGGLE_ADMIN';
 
 export async function writeAdminLog(
 	adminId: number,

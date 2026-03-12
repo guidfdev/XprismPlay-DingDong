@@ -45,7 +45,9 @@
 			class="text-orange-500 {badgeClass}"
 		/>
 	{/if}
-	{#if user.isAdmin}
+	{#if user.isHeadAdmin}
+		<SilentBadge icon={KnightShieldIcon} text="Head Admin" class="text-orange-500 {badgeClass}" />
+	{:else if user.isAdmin}
 		<SilentBadge icon={KnightShieldIcon} text="Admin" class="text-primary {badgeClass}" />
 	{/if}
 	{#if user.founderBadge}
