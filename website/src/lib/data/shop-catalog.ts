@@ -198,7 +198,7 @@ export const NAME_COLOR_CATALOG: NameColorItem[] = [
 		style: 'text-shadow: 0px 0px 10px var(--color-slate-700);'
 	},
 	{
-		key: 'coffe_glow',
+		key: 'coffee_glow',
 		label: 'Coffee Light',
 		rarity: 'mythic',
 		price: 7000,
