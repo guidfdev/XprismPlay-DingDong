@@ -3,7 +3,12 @@
 	import { Button } from '$lib/components/ui/button';
 	import { Input } from '$lib/components/ui/input';
 	import { HugeiconsIcon } from '@hugeicons/svelte';
-	import { Shield01Icon, UserCheck01Icon, Cancel01Icon, Coins01Icon } from '@hugeicons/core-free-icons';
+	import {
+		Shield01Icon,
+		UserCheck01Icon,
+		Cancel01Icon,
+		Coins01Icon
+	} from '@hugeicons/core-free-icons';
 	import { toast } from 'svelte-sonner';
 
 	// Toggle Admin State
@@ -50,7 +55,7 @@
 		const amountNum = Number(balanceAmount);
 		// Removed amountNum < 0 so negative balances/adjustments are allowed
 		if (!balanceUsername.trim() || isNaN(amountNum)) {
-			toast.error("Please provide a valid username and amount.");
+			toast.error('Please provide a valid username and amount.');
 			return;
 		}
 
@@ -59,10 +64,10 @@
 			const response = await fetch('/api/admin/head/balance', {
 				method: 'POST',
 				headers: { 'Content-Type': 'application/json' },
-				body: JSON.stringify({ 
-					username: balanceUsername.trim(), 
+				body: JSON.stringify({
+					username: balanceUsername.trim(),
 					amount: amountNum,
-					action 
+					action
 				})
 			});
 
@@ -85,7 +90,7 @@
 	async function updatePrestige() {
 		const levelNum = parseInt(prestigeLevel);
 		if (!prestigeUsername.trim() || isNaN(levelNum) || levelNum < 0) {
-			toast.error("Please provide a valid username and a prestige level (0 or higher).");
+			toast.error('Please provide a valid username and a prestige level (0 or higher).');
 			return;
 		}
 
@@ -94,9 +99,9 @@
 			const response = await fetch('/api/admin/head/prestige', {
 				method: 'POST',
 				headers: { 'Content-Type': 'application/json' },
-				body: JSON.stringify({ 
-					username: prestigeUsername.trim(), 
-					level: levelNum 
+				body: JSON.stringify({
+					username: prestigeUsername.trim(),
+					level: levelNum
 				})
 			});
 
@@ -117,7 +122,7 @@
 	}
 </script>
 
-<div class="container mx-auto max-w-4xl py-6 space-y-6">
+<div class="container mx-auto max-w-4xl space-y-6 py-6">
 	<Card.Root>
 		<Card.Header>
 			<Card.Title class="flex items-center gap-2">
@@ -165,7 +170,9 @@
 				<HugeiconsIcon icon={Coins01Icon} class="h-5 w-5 text-green-500" />
 				Balance Management
 			</Card.Title>
-			<Card.Description>Set, add, or subtract from a user's base currency balance (negatives allowed).</Card.Description>
+			<Card.Description
+				>Set, add, or subtract from a user's base currency balance (negatives allowed).</Card.Description
+			>
 		</Card.Header>
 		<Card.Content>
 			<div class="max-w-md space-y-4">
@@ -226,7 +233,9 @@
 		<Card.Content>
 			<div class="max-w-md space-y-4">
 				<div>
-					<label for="prestige-username" class="mb-2 block text-sm font-medium">Target Username</label>
+					<label for="prestige-username" class="mb-2 block text-sm font-medium"
+						>Target Username</label
+					>
 					<Input
 						id="prestige-username"
 						bind:value={prestigeUsername}

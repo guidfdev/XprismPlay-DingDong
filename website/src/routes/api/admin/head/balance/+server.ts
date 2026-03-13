@@ -27,7 +27,10 @@ export const POST: RequestHandler = async ({ request }) => {
 
 	// Removed amount < 0 so negative numbers are properly passed to the DB
 	if (!username || typeof amount !== 'number' || isNaN(amount)) {
-		return json({ message: 'Invalid input. Provide a username and a valid amount.' }, { status: 400 });
+		return json(
+			{ message: 'Invalid input. Provide a username and a valid amount.' },
+			{ status: 400 }
+		);
 	}
 
 	const [targetUser] = await db
@@ -62,4 +65,4 @@ export const POST: RequestHandler = async ({ request }) => {
 		console.error('Failed to update balance:', error);
 		return json({ message: 'Database error while updating balance.' }, { status: 500 });
 	}
-}
+};

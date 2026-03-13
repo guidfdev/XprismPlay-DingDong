@@ -343,8 +343,8 @@ export function showSchoolPrideCannons(confetti: any) {
 	})();
 }
 export function calcPrestigePrice(prestigeLevel: number) {
-	if(prestigeLevel === 1) return 100_000
-	return Math.round(100_000 * 2.1**(prestigeLevel-1))
+	if (prestigeLevel === 1) return 100_000;
+	return Math.round(100_000 * 2.1 ** (prestigeLevel - 1));
 }
 
 export const formatMarketCap = formatValue;
@@ -365,7 +365,7 @@ export function timeToLocal(originalTime: number): number {
 }
 
 export const PRESTIGE_COSTS = Object.fromEntries(
-    Array.from({ length: getMaxPrestigeLevel() }, (_, i) => [i + 1, calcPrestigePrice(i + 1)])
+	Array.from({ length: getMaxPrestigeLevel() }, (_, i) => [i + 1, calcPrestigePrice(i + 1)])
 ) as Record<number, number>;
 
 export const PRESTIGE_NAMES = {
@@ -382,7 +382,7 @@ export const PRESTIGE_NAMES = {
 	11: 'Prestige XI',
 	12: 'Prestige XII',
 	13: 'Prestige XIII',
-	14: 'Prestige XIX',
+	14: 'Prestige XIV',
 	15: 'Prestige XV'
 } as const;
 

@@ -709,6 +709,8 @@
 			<div class="mb-4 flex items-center justify-between rounded-lg border px-4 py-3">
 				<span class="text-sm"
 					>Currently equipped: <strong
+						class={NAME_COLOR_CATALOG.find((c) => c.key === equippedColor)?.classes ?? ''}
+						style={NAME_COLOR_CATALOG.find((c) => c.key === equippedColor)?.style ?? ''}
 						>{NAME_COLOR_CATALOG.find((c) => c.key === equippedColor)?.label ??
 							equippedColor}</strong
 					></span

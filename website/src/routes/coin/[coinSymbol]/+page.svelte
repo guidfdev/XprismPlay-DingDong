@@ -597,7 +597,7 @@
 								</Badge>
 							{/if}
 							{#if !coin.isListed}
-								<Badge variant="destructive">{$_("coin.delisted")}</Badge>
+								<Badge variant="destructive">{$_('coin.delisted')}</Badge>
 							{/if}
 						</div>
 					</div>
