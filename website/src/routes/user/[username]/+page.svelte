@@ -503,23 +503,19 @@
 						{/if}
 
 						<div class="text-muted-foreground flex items-center gap-2 text-sm">
-							<HugeiconsIcon icon={Calendar01Icon} class="h-4 w-4" />
-							<span>Joined {memberSince}</span>
-						</div>
-						<div class="text-muted-foreground flex items-center gap-2 text-sm">
 							<HugeiconsIcon icon={ClockIcon} class="h-4 w-4" />
 							<span
-								>{profileData?.profile.name} are at
-								<b
-									title="{profileData?.profile.name}'s timezone: UTC{formatTimezone(
-										profileData?.profile?.timezone ?? 0
-									)}"
-									>{usersTimezone.getHours().toString().padStart(2, '0')}:{usersTimezone
+								><b
+								>{usersTimezone.getHours().toString().padStart(2, '0')}:{usersTimezone
 										.getMinutes()
 										.toString()
 										.padStart(2, '0')}h</b
-								> rn</span
+								> (UTC{formatTimezone(profileData?.profile?.timezone ?? 0)})</span
 							>
+						</div>
+						<div class="text-muted-foreground flex items-center gap-2 text-sm">
+							<HugeiconsIcon icon={Calendar01Icon} class="h-4 w-4" />
+							<span>Joined {memberSince}</span>
 						</div>
 					</div>
 					{#if $USER_DATA && !isOwnProfile}
