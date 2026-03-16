@@ -92,15 +92,15 @@ export const POST: RequestHandler = async ({ request }) => {
 export const DELETE: RequestHandler = async ({ request }) => {
 	const session = await auth.api.getSession({ headers: request.headers });
 	if (!session?.user) {
-		throw error(403, 'Admin access required');
+		throw error(403, 'Head Admin access required');
 	}
 	const [currentUser] = await db
 		.select({ flags: user.flags })
 		.from(user)
 		.where(eq(user.id, Number(session.user.id)))
 		.limit(1);
-	if (!hasFlag(currentUser.flags ?? 0n, 'IS_ADMIN', 'IS_HEAD_ADMIN'))
-		throw error(403, 'Admin access required');
+	if (!hasFlag(currentUser.flags ?? 0n, 'IS_HEAD_ADMIN'))
+		throw error(403, 'Head Admin access required');
 
 	const { id } = await request.json();
 	if (!id) return json({ error: 'Promo code ID is required' }, { status: 400 });
