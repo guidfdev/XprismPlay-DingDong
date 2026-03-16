@@ -17,7 +17,7 @@ export const POST: RequestHandler = async ({ request }) => {
 		.from(user)
 		.where(eq(user.id, Number(session.user.id)))
 		.limit(1);
-	if (!hasFlag(currentUser.flags ?? 0n, 'IS_ADMIN', 'IS_HEAD_ADMIN'))
+	if (!hasFlag(currentUser.flags, 'IS_ADMIN', 'IS_HEAD_ADMIN'))
 		throw error(403, 'Admin access required');
 
 	const { code, description, rewardAmount, rewardType, maxUses, expiresAt, isSecret } =
@@ -99,8 +99,7 @@ export const DELETE: RequestHandler = async ({ request }) => {
 		.from(user)
 		.where(eq(user.id, Number(session.user.id)))
 		.limit(1);
-	if (!hasFlag(currentUser.flags, 'IS_HEAD_ADMIN'))
-		throw error(403, 'Head Admin access required');
+	if (!hasFlag(currentUser.flags, 'IS_HEAD_ADMIN')) throw error(403, 'Head Admin access required');
 
 	const { id } = await request.json();
 	if (!id) return json({ error: 'Promo code ID is required' }, { status: 400 });
@@ -131,7 +130,7 @@ export const GET: RequestHandler = async ({ request }) => {
 		.from(user)
 		.where(eq(user.id, Number(session.user.id)))
 		.limit(1);
-	if (!hasFlag(currentUser.flags ?? 0n, 'IS_ADMIN', 'IS_HEAD_ADMIN'))
+	if (!hasFlag(currentUser.flags, 'IS_ADMIN', 'IS_HEAD_ADMIN'))
 		throw error(403, 'Admin access required');
 
 	const rows = await db
@@ -145,11 +144,12 @@ export const GET: RequestHandler = async ({ request }) => {
 			isActive: promoCode.isActive,
 			createdAt: promoCode.createdAt,
 			expiresAt: promoCode.expiresAt,
-			usedCount: count(promoCodeRedemption.id).as('usedCount')
+			usedCount: count(promoCodeRedemption.id).as('usedCount'),
+			...(hasFlag(currentUser.flags, 'IS_HEAD_ADMIN') ? { isSecret: promoCode.isSecret } : {})
 		})
 		.from(promoCode)
 		.leftJoin(promoCodeRedemption, eq(promoCode.id, promoCodeRedemption.promoCodeId))
-		.where(eq(promoCode.isSecret, false))
+		.where(hasFlag(currentUser.flags, 'IS_HEAD_ADMIN') ? undefined : eq(promoCode.isSecret, false))
 		.groupBy(promoCode.id);
 
 	return json({

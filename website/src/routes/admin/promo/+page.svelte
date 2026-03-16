@@ -23,11 +23,14 @@
 		CancelCircleIcon,
 		Loading03Icon,
 		Tick01Icon,
-		Cancel01Icon
+		Cancel01Icon,
+
+		People
+
 	} from '@hugeicons/core-free-icons';
 	import { USER_DATA } from '$lib/stores/user-data';
 	import { formatDate, getExpirationDate } from '$lib/utils';
-	import type { PromoCode } from '$lib/types/promo-code';
+	import type { PromoCode, PromoCodeUse } from '$lib/types/promo-code';
 	import { hasFlag } from '$lib/data/flags';
 
 	let code = $state('');
@@ -81,6 +84,20 @@
 			console.error('Failed to load promo codes:', error);
 		} finally {
 			isLoading = false;
+		}
+	}
+
+	async function getPromocodeUses(promocode: string) : Promise<PromoCodeUse[] | undefined>{
+		try {
+			const response = await fetch(`http://localhost:5173/api/admin/promo/uses?code=${encodeURIComponent(promocode)}`);
+			if (response.ok) {
+				const json = await response.json();
+				return json.uses
+			} else {
+				console.error('Failed to load promo codes:', response.status, response.statusText);
+			}
+		} catch (error) {
+		} finally {
 		}
 	}
 
@@ -164,7 +181,7 @@
 	}
 
 	$effect(() => {
-		if (hasFlag($USER_DATA?.flags ?? 0n, 'IS_ADMIN', 'IS_HEAD_ADMIN')) {
+		if (hasFlag($USER_DATA?.flags, 'IS_ADMIN', 'IS_HEAD_ADMIN')) {
 			loadPromoCodes();
 		}
 	});
@@ -175,7 +192,7 @@
 	<meta name="robots" content="noindex, nofollow" />
 </svelte:head>
 
-{#if !$USER_DATA || !hasFlag($USER_DATA?.flags ?? 0n, 'IS_ADMIN', 'IS_HEAD_ADMIN')}
+{#if !$USER_DATA || !hasFlag($USER_DATA?.flags, 'IS_ADMIN', 'IS_HEAD_ADMIN')}
 	<div class="flex h-screen items-center justify-center">
 		<div class="text-center">
 			<h1 class="text-2xl font-bold">Access Denied</h1>
@@ -367,6 +384,19 @@
 											<Badge variant={promo.isActive ? 'default' : 'secondary'} class="text-xs">
 												{promo.isActive ? 'Active' : 'Inactive'}
 											</Badge>
+											{#if hasFlag($USER_DATA.flags, 'IS_HEAD_ADMIN') && promo.isSecret}
+												<Badge variant={promo.isActive ? 'default' : 'secondary'} class="text-xs">
+													Secret
+												</Badge>
+											{/if}
+											<button
+												onclick={() => getPromocodeUses(promo.code).then(v=>alert(`Promo code uses:\n${v?.map(e=>e.username).join('\n')}`))}
+												disabled={isDeleting === promo.id}
+												class="text-muted-foreground hover:text-destructive transition-colors disabled:opacity-50"
+												title="Delete promo code"
+											>
+											<HugeiconsIcon icon={People} class="h-4 w-4"/>
+											</button>
 											<button
 												onclick={() => deletePromoCode(promo.id)}
 												disabled={isDeleting === promo.id}

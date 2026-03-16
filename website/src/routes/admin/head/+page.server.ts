@@ -20,7 +20,7 @@ export const load: ServerLoad = async ({ request }) => {
 		.limit(1);
 
 	// Kick them out if they aren't a head admin
-	if (!hasFlag(currentUser?.flags ?? 0n, 'IS_HEAD_ADMIN')) {
+	if (!hasFlag(currentUser?.flags, 'IS_HEAD_ADMIN')) {
 		throw redirect(302, '/');
 	}
 

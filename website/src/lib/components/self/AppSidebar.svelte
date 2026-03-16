@@ -203,7 +203,7 @@
 			<img src="/rugplay.svg" class="h-5 w-5" alt="twoblade" />
 			<div class="flex items-center gap-2">
 				<span class="text-base font-semibold">XprismPlay</span>
-				{#if hasFlag($USER_DATA?.flags ?? 0n, 'IS_ADMIN')}
+				{#if hasFlag($USER_DATA?.flags, 'IS_ADMIN')}
 					<span class="text-muted-foreground text-xs">| Admin</span>
 				{/if}
 			</div>
@@ -514,10 +514,10 @@
 								</DropdownMenu.Item>
 							</DropdownMenu.Group>
 
-							{#if hasFlag($USER_DATA?.flags ?? 0n, 'IS_ADMIN', 'IS_HEAD_ADMIN')}
+							{#if hasFlag($USER_DATA?.flags, 'IS_ADMIN', 'IS_HEAD_ADMIN')}
 								<DropdownMenu.Separator />
 								<DropdownMenu.Group>
-									{#if hasFlag($USER_DATA?.flags ?? 0n, 'IS_HEAD_ADMIN')}
+									{#if hasFlag($USER_DATA?.flags, 'IS_HEAD_ADMIN')}
 										<DropdownMenu.Item
 											onclick={handleHeadAdminClick}
 											class="text-orange-500 focus:bg-orange-500/10 focus:text-orange-500!"
@@ -527,7 +527,7 @@
 										</DropdownMenu.Item>
 									{/if}
 
-									{#if hasFlag($USER_DATA.flags ?? 0n, 'IS_ADMIN', 'IS_HEAD_ADMIN')}
+									{#if hasFlag($USER_DATA.flags, 'IS_ADMIN', 'IS_HEAD_ADMIN')}
 										<DropdownMenu.Item
 											onclick={handleAdminClick}
 											class="text-primary hover:text-primary!"

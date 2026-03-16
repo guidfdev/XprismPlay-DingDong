@@ -11,6 +11,7 @@ export function hasFlag(
 	...flag_l: (keyof typeof UserFlags)[]
 ) {
 	const flags = BigInt(_flags ?? 0);
+	if (flags === 0n) return false;
 	for (const flag of flag_l) if ((flags & UserFlags[flag]) !== 0n) return true;
 	return false;
 }

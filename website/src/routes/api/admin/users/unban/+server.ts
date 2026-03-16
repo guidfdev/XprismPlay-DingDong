@@ -20,7 +20,7 @@ export const POST: RequestHandler = async ({ request }) => {
 		.where(eq(user.id, Number(authSession.user.id)))
 		.limit(1);
 
-	if (!hasFlag(currentUser.flags ?? 0n, 'IS_ADMIN', 'IS_HEAD_ADMIN')) {
+	if (!hasFlag(currentUser.flags, 'IS_ADMIN', 'IS_HEAD_ADMIN')) {
 		throw error(403, 'Admin access required');
 	}
 
