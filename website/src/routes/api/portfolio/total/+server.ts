@@ -44,7 +44,12 @@ export async function GET({ request }) {
 		holdings.map(async (holding) => {
 			const quantity = Number(holding.quantity);
 			const price = Number(holding.currentPrice);
-			const value = quantity * price;
+			let k = 1000000000000
+			let coinAmount = Math.sqrt(Number(k) / price);
+			let baseCurrency = price * coinAmount;
+			let newCoinAmount = coinAmount + quantity;
+			let newBaseCurrency = Number(k) / newCoinAmount;
+			let value = baseCurrency - newBaseCurrency;
 			totalCoinValue += value;
 
 			const allTransactions = await db
